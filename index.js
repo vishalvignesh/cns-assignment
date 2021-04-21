@@ -1,32 +1,51 @@
-const { app, BrowserWindow } = require('electron')
+const { app, Menu, Tray, BrowserWindow } = require("electron");
 const path = require('path')
+//Menu.setApplicationMenu(false)
 
-function createWindow () {
+
+function createWindow() {
   const win = new BrowserWindow({
-    width: 800,
+    width: 1300,
     height: 600,
+    frame: true,
+    resizable: true,
     webPreferences: {
-      //preload: path.join(__dirname, 'preload.js')
+      //preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,
+      contextIsolation : false,
+      nodeIntegrationInSubFrames: true,
+      nodeIntegrationInWorker: true,
       enableRemoteModule: true,
-    }
-  })
+    },
+  });
+  win.loadFile("mainpage.html");
 
-  win.loadFile('mainpage.html')
+  win.on("activate", () => {
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createWindow();
+    }
+  });
+
+  win.on("browser-window-created", function (e, window) {
+    Menu.setApplicationMenu(false)
+  });
 }
 
-app.whenReady().then(() => {
-  createWindow()
+process.on("uncaughtException", function (err) {
+  console.log(err);
+});
 
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow()
-    }
-  })
-})
-
+app.on(
+  "certificate-error",
+  (event, webContents, url, error, certificate, callback) => {
+    event.preventDefault();
+    callback(true);
+  }
+);
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
   }
 })
+
+app.whenReady().then(createWindow);
