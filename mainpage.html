@@ -23,24 +23,41 @@
         <div class="hero-foot">
             <nav class="tabs is-boxed is-fullwidth">
                 <div class="container">
-                  <ul>
+                  <ul id = "nav">
                     <li><a>Playfair Cipher</a></li>
-                    <li><a>Hill Cipher</a></li>
                     <li><a>Vignere Cipher</a></li>
                     <li><a>Vernam Cipher</a></li>
                     <li><a>RailFence Cipher</a></li>
                     <li><a>DES</a></li> 
                     <li><a>AES</a></li>
                     <li><a>RSA</a></li>
+                    <li><a>File Encryption</a></li>
                   </ul>
                 </div>
               </nav>
         </div>
   </section>
-
   <button class="button is-info" onclick="file_select_encrypt()">Info</button>
-
+  <div class = "box">
+  <section class="section">
+    <div class="buttons has-addons is-centered">
+        <button class="button is-success is-selected">Encrypt</button>
+        <button class="button is-danger is-selected">Decrypt</button>
+      </div>
+      <input class="input" type="text" placeholder="Plain Text">
+      <input class="input" type="text" placeholder="Key">
+      <textarea class="textarea" placeholder="Cipher Text"></textarea>
+  </section>
+</div>
+  <footer class="footer has-background-info-dark">
+    <div class="hero-foot">
+      <div class="content has-text-right has-text-white">
+      <p>
+          Assignment done by Sudharsan N and Vishal Vignesh S
+      </p>
+      </div>
+  </div>  
+</footer>
 <script src="mainpage.js"></script>
-
 </body>
 </html>

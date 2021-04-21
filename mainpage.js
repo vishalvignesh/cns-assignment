@@ -140,3 +140,21 @@ function file_select_decrypt(key)
         file_decrypt(files[0].path,key)
     })
 }
+// select item Onclick
+(function() {
+
+    var nav = document.getElementById('nav');
+
+    function handleClick(e) {
+
+        for(var i = 0; i < nav.children.length; i++) {
+            nav.children[i].style.background = 'transparent';
+        }
+       e.target.style.background = 'red'; 
+    }
+
+    for(var i = 0; i < nav.children.length; i++) {
+        nav.children[i].addEventListener('click', handleClick);
+    }
+
+})();
