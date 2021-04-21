@@ -1,0 +1,27 @@
+{
+  "name": "cns-assignment",
+  "version": "1.0.0",
+  "description": "A Simple Demonstration of Various Encryption Techniques taken in class",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vishalvignesh/cns-assignment.git"
+  },
+  "author": "Vishal Vignesh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vishalvignesh/cns-assignment/issues"
+  },
+  "homepage": "https://github.com/vishalvignesh/cns-assignment#readme",
+  "devDependencies": {
+    "bulma": "^0.9.2",
+    "electron": "^12.0.5"
+  },
+  "dependencies": {
+    "bulma-start": "^0.0.4"
+  }
+}
