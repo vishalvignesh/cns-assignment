@@ -21,43 +21,38 @@
         </div>
         
         <div class="hero-foot">
-            <nav class="tabs is-boxed is-fullwidth">
+            <nav class="tabs is-fullwidth">
                 <div class="container">
                   <ul id = "nav">
-                    <li><a>Playfair Cipher</a></li>
-                    <li><a>Vignere Cipher</a></li>
-                    <li><a>Vernam Cipher</a></li>
-                    <li><a>RailFence Cipher</a></li>
-                    <li><a>DES</a></li> 
-                    <li><a>AES</a></li>
-                    <li><a>RSA</a></li>
-                    <li><a>File Encryption</a></li>
+                    <li onclick="set_mode(this.id)" id="1"><a>Playfair Cipher</a></li>
+                    <li onclick="set_mode(this.id)" id="2"><a>Vignere Cipher</a></li>
+                    <li onclick="set_mode(this.id)" id="3"><a>Vernam Cipher</a></li>
+                    <li onclick="set_mode(this.id)" id="4"><a>RailFence Cipher</a></li>
+                    <li onclick="set_mode(this.id)" id="5"><a>DES</a></li> 
+                    <li onclick="set_mode(this.id)" id="6"><a>AES</a></li>
+                    <li onclick="set_mode(this.id)" id="7"><a>RSA</a></li>
+                    <li onclick="set_mode(this.id)" id="8"><a>File Encryption</a></li>
+                    <li onclick="reload_page()"><a>Reset</a></li>
                   </ul>
                 </div>
               </nav>
         </div>
   </section>
-  <button class="button is-info" onclick="file_select_encrypt()">Info</button>
+
   <div class = "box">
-  <section class="section">
-    <div class="buttons has-addons is-centered">
-        <button class="button is-success is-selected">Encrypt</button>
-        <button class="button is-danger is-selected">Decrypt</button>
-      </div>
-      <input class="input" type="text" placeholder="Plain Text">
-      <input class="input" type="text" placeholder="Key">
-      <textarea class="textarea" placeholder="Cipher Text"></textarea>
+  <section class="section is-centered" id="mainsection">
+    
+<input class="input is-info" id="txt1" type="text" placeholder="Plain Text | Encrypted Text" disabled>
+<input class="input is-info" id="txt2" type="text" placeholder="Secret Password / Key" disabled>
+<textarea class="textarea is-info" id="txt4" placeholder="Cipher Text | Decrypted Text" disabled></textarea>
+
+
+<div class="buttons has-addons is-centered mt-6">
+  <button class="button is-success" onclick="encrypt_button_handler()" id="encrypt_button" disabled>Encrypt</button>
+  <button class="button is-danger ml-2" onclick="decrypt_button_handler()" id="decrypt_button" disabled>Decrypt</button>
+</div>
   </section>
 </div>
-  <footer class="footer has-background-info-dark">
-    <div class="hero-foot">
-      <div class="content has-text-right has-text-white">
-      <p>
-          Assignment done by Sudharsan N and Vishal Vignesh S
-      </p>
-      </div>
-  </div>  
-</footer>
 <script src="mainpage.js"></script>
 </body>
 </html>
