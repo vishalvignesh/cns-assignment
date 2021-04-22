@@ -333,12 +333,20 @@ function encrypt_button_handler(){
         v3.value = res[1]
         v2.value = res[2]
         
-
     }
     else{
-        var res = document.getElementById('mainsection');
-        res.innerHTML = html_others
-        enable_all()
+        var v1 = document.getElementById("txt1");
+        var v2 = document.getElementById("txt2");
+        var v4 = document.getElementById("txt4");
+
+        txt = v1.value
+        pass = v2.value
+
+        console.log(txt,pass)
+        if(set_id == 1)v4.value = playfair_encrypt(txt,pass)
+        else if(set_id == 2) v4.value = vignere_encrypt(txt,pass)
+        else if(set_id == 3) v4.value = vernam_encrypt(txt,pass)
+        else v4.value = railfence_encrypt(txt,pass)
 
     } 
 }
@@ -386,9 +394,18 @@ function decrypt_button_handler(){
 
     }
     else{
-        var res = document.getElementById('mainsection');
-        res.innerHTML = html_others
-        enable_all()
+        var v1 = document.getElementById("txt1");
+        var v2 = document.getElementById("txt2");
+        var v4 = document.getElementById("txt4");
+
+        txt = v1.value
+        pass = v2.value
+
+        if(set_id == 1)v4.value = playfair_encrypt(txt,pass)
+        else if(set_id == 2) v4.value = vignere_decrypt(txt,pass)
+        else if(set_id == 3) v4.value = vernam_decrypt(txt,pass)
+        else v4.value = railfence_decrypt(txt,pass)
+
 
     } 
 }
