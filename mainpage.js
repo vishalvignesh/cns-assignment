@@ -12,6 +12,7 @@ const Cryptify = require('cryptify');
 const { PassThrough } = require('stream');
 const fileDialog = require('file-dialog')
 const Swal = require('sweetalert2')
+const NodeRSA = require('node-rsa')
 
 set_id = 0
 
@@ -42,9 +43,8 @@ html_file_encryption = `<input class="input is-info" id="txt2" type="text" place
       <button class="button is-danger ml-2" onclick="decrypt_button_handler()" id="decrypt_button" disabled>Decrypt</button>
       </div>`
 html_rsa = `<input class="input is-info" id="txt1" type="text" placeholder="Plain Text | Encrypted Text" disabled>
-<input class="input is-info" id="txt2" type="text" placeholder="Secret Password / Key" disabled>
-<textarea class="textarea is-info" id="txt3" type="text" readonly disabled>Public Key</textarea>
-<textarea class="textarea is-info" id="txt5" type="text" readonly disabled>Private Key</textarea>
+<textarea class="textarea is-info" id="txt2" type="text" readonly disabled>Public Key</textarea>
+<textarea class="textarea is-info" id="txt3" type="text" disabled>Private Key</textarea>
 <textarea class="textarea is-info" id="txt4" placeholder="Cipher Text | Decrypted Text" disabled></textarea>
 
 
@@ -102,7 +102,7 @@ function des_encrypt(txt,key){
     const cipher = crypto.createCipheriv('des-ede3', key_pass, '');
     let encrypted = cipher.update(txt, 'utf8', 'base64');
     encrypted += cipher.final('base64');
-    return (encrypted,key_pass)
+    return [encrypted,key_pass]
 }
 
 function des_decrypt(txt,key){
@@ -110,27 +110,28 @@ function des_decrypt(txt,key){
     const decipher = crypto.createDecipheriv('des-ede3', key_pass, ''); 
     let encrypted = decipher.update(txt, 'base64', 'utf8');
     encrypted += decipher.final('utf8');
-    return (encrypted,key_pass)
+    return [encrypted,key_pass]
 }
 
 function aes_encrypt(txt,key){
-    var cipher = aes256.createCipher(key);
-    return (cipher.encrypt(txt),cipher)
+    return aes256.encrypt(key,txt)
 }
 
 function aes_decrypt(txt,key){
-    var cipher = aes256.createCipher(key);
-    return (cipher.decrypt(txt),cipher)
+    return aes256.decrypt(key,txt)
 }
 
 function rsa_encrypt(txt){
-    const key = new NodeRSA({b: 4096});
-    const encrypted = key.encrypt(text, 'base64');
-    return(encrypted,key.exportKey('private'),key.exportKey('public'))
+    const key = new NodeRSA({b: 2048});
+    console.log(key)
+    const encrypted = key.encrypt(txt, 'base64');
+    return[encrypted,key.exportKey('pkcs1-private-pem'),key.exportKey('pkcs8-public-pem')]
 }
 
 function rsa_decrypt(txt,key){
-    return key.decrypt(encrypted,'utf8')
+    const pvtkey = new NodeRSA(key,'pkcs1-private-pem');
+    decrypted = pvtkey.decrypt(txt,'utf-8')
+    return decrypted
 }
 
 function file_encrypt(file,key) //encrypting file using aes-256-cbc
@@ -238,7 +239,6 @@ function enable_rsa(){
     var v2 = document.getElementById("txt2");
     var v3 = document.getElementById("txt3");
     var v4 = document.getElementById("txt4");
-    var v5 = document.getElementById("txt5");
     var v6 = document.getElementById("encrypt_button");
     var v7 = document.getElementById("decrypt_button");
 
@@ -247,11 +247,9 @@ function enable_rsa(){
     v2.disabled = false
     v3.disabled = false
     v4.disabled = false
-    v5.disabled = false
     v6.disabled = false
     v7.disabled = false
 }
-
 function set_mode(id){
     if(id == 8){
         var res = document.getElementById('mainsection');
@@ -286,12 +284,10 @@ function set_mode(id){
     }
     items[id-1].style.background = 'green'
 }
-
 function reload_page(){
     window.location.reload();
     set_id = 0
 }
-
 function encrypt_button_handler(){
     if(set_id == 8){
         var v1 = document.getElementById("txt2");
@@ -299,15 +295,44 @@ function encrypt_button_handler(){
         file_select_encrypt(pass)
     }
     else if(set_id == 5 || set_id == 6){
-        var res = document.getElementById('mainsection');
-        res.innerHTML = html_des_aes
-        enable_aes_des()
+        var v1 = document.getElementById("txt1");
+        var v2 = document.getElementById("txt2");
+        var v3 = document.getElementById("txt3");
+        var v4 = document.getElementById("txt4");
+
+        if(set_id == 5){
+
+            txt_enc = v1.value
+            pass = v2.value
+            res = des_encrypt(txt_enc,pass)
+            
+            v3.value = res[1]
+            v4.value = res[0]
+        }
+        else {
+
+            txt_enc = v1.value
+            pass = v2.value
+            res = aes_encrypt(txt_enc,pass)
+            
+            v4.value = res[0]
+            v3.value = res[1].toString('base64')
+        }
 
     }
     else if(set_id == 7){
-        var res = document.getElementById('mainsection');
-        res.innerHTML = html_rsa
-        enable_rsa()
+        var v1 = document.getElementById("txt1");
+        var v2 = document.getElementById("txt2");
+        var v3 = document.getElementById("txt3");
+        var v4 = document.getElementById("txt4");
+
+        txt = v1.value
+        res = rsa_encrypt(txt)
+        v4.value = res[0]
+        
+        v3.value = res[1]
+        v2.value = res[2]
+        
 
     }
     else{
@@ -317,7 +342,6 @@ function encrypt_button_handler(){
 
     } 
 }
-
 function decrypt_button_handler(){
     if(set_id == 8){
         var v1 = document.getElementById("txt2");
@@ -325,15 +349,40 @@ function decrypt_button_handler(){
         file_select_decrypt(pass)
     }
     else if(set_id == 5 || set_id == 6){
-        var res = document.getElementById('mainsection');
-        res.innerHTML = html_des_aes
-        enable_aes_des()
+        var v1 = document.getElementById("txt1");
+        var v2 = document.getElementById("txt2");
+        var v3 = document.getElementById("txt3");
+        var v4 = document.getElementById("txt4");
+
+        if(set_id == 5){
+            txt_enc = v1.value
+            pass = v2.value
+            res = des_decrypt(txt_enc,pass)
+            
+            v3.value = res[1]
+            v4.value = res[0]
+        }
+        else {
+            txt_enc = v1.value
+            pass = v2.value
+            res = aes_decrypt(txt_enc,pass)
+            
+            v4.value = res[0]
+            v3.value = res[1].toString('base64')
+        }
 
     }
     else if(set_id == 7){
-        var res = document.getElementById('mainsection');
-        res.innerHTML = html_rsa
-        enable_rsa()
+        var v1 = document.getElementById("txt1");
+        var v2 = document.getElementById("txt2");
+        var v3 = document.getElementById("txt3");
+        var v4 = document.getElementById("txt4");
+
+        txt = v1.value
+        pvt_key = v3.value
+        res = rsa_decrypt(txt,pvt_key)
+        v4.value = res
+    
 
     }
     else{
