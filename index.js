@@ -1,6 +1,6 @@
 const { app, Menu, Tray, BrowserWindow } = require("electron");
 const path = require('path')
-//Menu.setApplicationMenu(false)
+Menu.setApplicationMenu(false)
 
 
 function createWindow() {
