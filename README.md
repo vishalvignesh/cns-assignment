@@ -35,6 +35,7 @@ This program provides a simplified GUI to explore some classical encryption algo
 
 * Clone the repo in any folder
 * Open Command Prompt (Make sure NPM and Node are Installed)
+* Run the command `npm install`
 * Run the command `npm start`
 
 ## Classical Ciphers
