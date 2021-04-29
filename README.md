@@ -96,7 +96,7 @@ This program provides a simplified GUI to explore some classical encryption algo
 #### Encryption
 ![File Encryption](https://i.postimg.cc/TwmbmPWS/encryption.gif)
 #### File Before -> After Encryption
-![File State](https://github.com/vishalvignesh/cns-assignment/blob/main/img/file_state.png)
+![File State](https://i.postimg.cc/qBKwVZKG/file-state2-0.png)
 #### Decryption:
 ![File Decryption](https://i.postimg.cc/ZnSdLh8q/decryption.gif)
 
