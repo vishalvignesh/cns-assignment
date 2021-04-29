@@ -6,7 +6,7 @@ Menu.setApplicationMenu(false)
 function createWindow() {
   const win = new BrowserWindow({
     width: 1300,
-    height: 600,
+    height: 700,
     frame: true,
     resizable: true,
     icon:'icon.png',
