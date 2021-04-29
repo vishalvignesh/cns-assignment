@@ -4,7 +4,7 @@ const vc = require('vigenere-cipher');
 const vernam = require('vernam-cipher')
 const railfencecipher = require("railfencecipher")
 const crypto = require('crypto');
-var aes256 = require('aes256');
+var aes256 = require('./src/aes256')
 const file_manager = require("fs");
 const Base64 = require('file-base64');
 const fs = require('fs')
@@ -15,7 +15,7 @@ const Swal = require('sweetalert2')
 const NodeRSA = require('node-rsa')
 
 set_id = 0
-rsa_keysize = 256
+rsa_keysize = 512
 
 html_des_aes = `      <input class="input is-info" id="txt1" type="text" placeholder="Plain Text | Encrypted Text" disabled>
 <input class="input is-info" id="txt2" type="text" placeholder="Secret Password / Key" disabled>
@@ -45,7 +45,6 @@ html_file_encryption = `<input class="input is-info" id="txt2" type="text" place
 html_rsa = `<input class="input is-info" id="txt1" type="text" placeholder="Plain Text | Encrypted Text" disabled>
 <div class="select is-link">
   <select onChange=rsa_setkeysize(this.value)>
-    <option value=256>256-bit</option>
     <option value=512>512-bit</option>
     <option value=1024>1024-bit</option>
     <option value=2048>2048-bit</option>
@@ -131,7 +130,7 @@ function aes_decrypt(txt,key){
 
 function rsa_encrypt(txt,keysize){
     const key = new NodeRSA({b: keysize});
-    console.log(key)
+    //console.log(key)
     const encrypted = key.encrypt(txt, 'base64');
     return[encrypted,key.exportKey('pkcs1-private-pem'),key.exportKey('pkcs8-public-pem')]
 }
@@ -150,7 +149,7 @@ function file_encrypt(file,key) //aes-256-cbc
 {    
     const instance = new Cryptify(file, key);
     instance.encrypt().then((files) => {
-        console.log(files)
+        //console.log(files)
         Swal.fire({
             icon: 'success',
             title: '<p style="color:#FFF";>Encrypted</p>',
@@ -168,7 +167,7 @@ function file_decrypt(file,key) //cbc
     const instance = new Cryptify(file, key);
     instance
       .decrypt().then((files) => {
-        console.log(files)
+        //console.log(files)
         Swal.fire({
             icon: 'success',
             title: '<p style="color:#FFF";>Decrypted</p>',
@@ -354,7 +353,7 @@ function encrypt_button_handler(){
         txt = v1.value
         pass = v2.value
 
-        console.log(txt,pass)
+        //console.log(txt,pass)
         if(set_id == 1)v4.value = playfair_encrypt(txt,pass)
         else if(set_id == 2) v4.value = vignere_encrypt(txt,pass)
         else if(set_id == 3) {

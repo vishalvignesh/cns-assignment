@@ -22,7 +22,6 @@
     "electron": "^12.0.5"
   },
   "dependencies": {
-    "aes256": "^1.1.0",
     "bulma-start": "^0.0.4",
     "classical-cipher": "^0.0.3",
     "cryptify": "^4.1.2",
