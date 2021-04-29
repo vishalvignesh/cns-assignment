@@ -16,7 +16,6 @@ const NodeRSA = require('node-rsa')
 
 set_id = 0
 
-
 html_des_aes = `      <input class="input is-info" id="txt1" type="text" placeholder="Plain Text | Encrypted Text" disabled>
 <input class="input is-info" id="txt2" type="text" placeholder="Secret Password / Key" disabled>
 <textarea class="textarea is-info" id="txt3" type="text" readonly disabled>Cipher Generated Key</textarea>
@@ -52,7 +51,6 @@ html_rsa = `<input class="input is-info" id="txt1" type="text" placeholder="Plai
 <button class="button is-success" onclick="encrypt_button_handler()" id="encrypt_button" disabled>Encrypt</button>
 <button class="button is-danger ml-2" onclick="decrypt_button_handler()" id="decrypt_button" disabled>Decrypt</button>
 </div>`
-
 
 function new_tobase64(filelocation) {
     let myprm = new Promise(function(resolve,reject){
@@ -134,7 +132,7 @@ function rsa_decrypt(txt,key){
     return decrypted
 }
 
-function file_encrypt(file,key) //encrypting file using aes-256-cbc
+function file_encrypt(file,key) //aes-256-cbc
 {    
     const instance = new Cryptify(file, key);
     instance.encrypt().then((files) => {
@@ -151,7 +149,7 @@ function file_encrypt(file,key) //encrypting file using aes-256-cbc
     })
 }
 
-function file_decrypt(file,key) //decrypting file using aes-256-cbc
+function file_decrypt(file,key) //cbc
 {
     const instance = new Cryptify(file, key);
     instance
