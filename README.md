@@ -95,6 +95,10 @@ This program provides a simplified GUI to explore some classical encryption algo
 
 #### Encryption
 ![File Encryption](https://i.postimg.cc/TwmbmPWS/encryption.gif)
+#### File State When Encrypted
+![File State](https://i.postimg.cc/rw89k5tp/file-contents.png
+)
+
 #### Decryption:
 ![File Decryption](https://i.postimg.cc/ZnSdLh8q/decryption.gif)
 
