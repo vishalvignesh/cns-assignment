@@ -73,7 +73,7 @@ function new_tobase64(filelocation) {
 }
 
 function playfair_encrypt(txt,key){
-    return ciperText = playfair.encipher(txt,key);
+    return playfair.encipher(txt,key);
 }
 
 function playfair_decrypt(ctxt,key){
@@ -93,7 +93,7 @@ function vernam_encrypt(txt,key){
 }
 
 function vernam_decrypt(ctxt,key){
-    return vernam.decrypt(ctxt,key)
+    return vernam.decrypt(key,ctxt)
 }
 
 function railfence_encrypt(txt,key){
@@ -356,7 +356,11 @@ function encrypt_button_handler(){
         console.log(txt,pass)
         if(set_id == 1)v4.value = playfair_encrypt(txt,pass)
         else if(set_id == 2) v4.value = vignere_encrypt(txt,pass)
-        else if(set_id == 3) v4.value = vernam_encrypt(txt,pass)
+        else if(set_id == 3) {
+            res = vernam_encrypt(txt,pass)
+            v2.value = res[0]
+            v4.value = res[1]
+        }
         else v4.value = railfence_encrypt(txt,pass)
 
     } 
@@ -412,7 +416,7 @@ function decrypt_button_handler(){
         txt = v1.value
         pass = v2.value
 
-        if(set_id == 1)v4.value = playfair_encrypt(txt,pass)
+        if(set_id == 1)v4.value = playfair_decrypt(txt,pass)
         else if(set_id == 2) v4.value = vignere_decrypt(txt,pass)
         else if(set_id == 3) v4.value = vernam_decrypt(txt,pass)
         else v4.value = railfence_decrypt(txt,pass)
