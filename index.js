@@ -9,6 +9,7 @@ function createWindow() {
     height: 600,
     frame: true,
     resizable: true,
+    icon:'icon.png',
     webPreferences: {
       //preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,
