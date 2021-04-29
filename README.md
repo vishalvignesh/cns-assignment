@@ -27,6 +27,7 @@ This program provides a simplified GUI to explore some classical encryption algo
   - [RSA](#rsa-encryption)
 
 - [File Encryption](#file-encryption)
+- [Acknowledgements](#Acknowledgements)
 - [License](#license)
 
 
@@ -99,8 +100,8 @@ This program provides a simplified GUI to explore some classical encryption algo
 
 ## Acknowledgements
 
-Vishal Vignesh S, 122003288, CSE IIIrd Year
-Sudharsan N, 122003260, CSE IIIrd Year
+* Vishal Vignesh S, 122003288, CSE IIIrd Year
+* Sudharsan N, 122003260, CSE IIIrd Year
 
 ## License
 
