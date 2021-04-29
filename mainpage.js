@@ -15,6 +15,7 @@ const Swal = require('sweetalert2')
 const NodeRSA = require('node-rsa')
 
 set_id = 0
+rsa_keysize = 512
 
 html_des_aes = `      <input class="input is-info" id="txt1" type="text" placeholder="Plain Text | Encrypted Text" disabled>
 <input class="input is-info" id="txt2" type="text" placeholder="Secret Password / Key" disabled>
@@ -42,6 +43,14 @@ html_file_encryption = `<input class="input is-info" id="txt2" type="text" place
       <button class="button is-danger ml-2" onclick="decrypt_button_handler()" id="decrypt_button" disabled>Decrypt</button>
       </div>`
 html_rsa = `<input class="input is-info" id="txt1" type="text" placeholder="Plain Text | Encrypted Text" disabled>
+<div class="select is-link">
+  <select onChange=rsa_setkeysize(this.value)>
+    <option value=512>512-bit</option>
+    <option value=1024>1024-bit</option>
+    <option value=2048>2048-bit</option>
+    <option value=4096>4096-bit</option>
+  </select>
+</div>
 <textarea class="textarea is-info" id="txt2" type="text" readonly disabled>Public Key</textarea>
 <textarea class="textarea is-info" id="txt3" type="text" disabled>Private Key</textarea>
 <textarea class="textarea is-info" id="txt4" placeholder="Cipher Text | Decrypted Text" disabled></textarea>
@@ -119,8 +128,8 @@ function aes_decrypt(txt,key){
     return aes256.decrypt(key,txt)
 }
 
-function rsa_encrypt(txt){
-    const key = new NodeRSA({b: 2048});
+function rsa_encrypt(txt,keysize){
+    const key = new NodeRSA({b: keysize});
     console.log(key)
     const encrypted = key.encrypt(txt, 'base64');
     return[encrypted,key.exportKey('pkcs1-private-pem'),key.exportKey('pkcs8-public-pem')]
@@ -130,6 +139,10 @@ function rsa_decrypt(txt,key){
     const pvtkey = new NodeRSA(key,'pkcs1-private-pem');
     decrypted = pvtkey.decrypt(txt,'utf-8')
     return decrypted
+}
+
+function rsa_setkeysize(val){
+    rsa_keysize = val
 }
 
 function file_encrypt(file,key) //aes-256-cbc
@@ -323,9 +336,9 @@ function encrypt_button_handler(){
         var v2 = document.getElementById("txt2");
         var v3 = document.getElementById("txt3");
         var v4 = document.getElementById("txt4");
-
+        
         txt = v1.value
-        res = rsa_encrypt(txt)
+        res = rsa_encrypt(txt,rsa_keysize)
         v4.value = res[0]
         
         v3.value = res[1]
