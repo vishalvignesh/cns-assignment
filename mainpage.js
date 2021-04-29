@@ -15,7 +15,7 @@ const Swal = require('sweetalert2')
 const NodeRSA = require('node-rsa')
 
 set_id = 0
-rsa_keysize = 512
+rsa_keysize = 256
 
 html_des_aes = `      <input class="input is-info" id="txt1" type="text" placeholder="Plain Text | Encrypted Text" disabled>
 <input class="input is-info" id="txt2" type="text" placeholder="Secret Password / Key" disabled>
@@ -45,6 +45,7 @@ html_file_encryption = `<input class="input is-info" id="txt2" type="text" place
 html_rsa = `<input class="input is-info" id="txt1" type="text" placeholder="Plain Text | Encrypted Text" disabled>
 <div class="select is-link">
   <select onChange=rsa_setkeysize(this.value)>
+    <option value=256>256-bit</option>
     <option value=512>512-bit</option>
     <option value=1024>1024-bit</option>
     <option value=2048>2048-bit</option>
