@@ -5,7 +5,7 @@
     <a><img src="https://img.shields.io/badge/license-MIT-green"/></a>
 </p>
 
-#### Assignment submitted by Vishal Vignesh S and Sudharsan
+#### Assignment submitted by Vishal Vignesh S and Sudharsan N
 
 ![Home Page](https://i.postimg.cc/76CVRDJM/home.png)
 
@@ -42,9 +42,9 @@ This program provides a simplified GUI to explore some classical encryption algo
 ### Playfair Cipher
 
 #### Encryption:
-![Playfair Encryption](https://i.postimg.cc/76CVRDJM/home.png)
+![Playfair Encryption](https://i.postimg.cc/bYtgHyhq/playfair.png)
 #### Decryption:
-![Playfair Decryption](https://i.postimg.cc/76CVRDJM/home.png)
+![Playfair Decryption](https://i.postimg.cc/KjB5ZNN1/playfair-dec.png)
 
 ### Vignere Cipher
 
